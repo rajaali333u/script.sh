@@ -18,7 +18,7 @@
 
 #
 
-#检测是否是root用户
+#root
 
 function check_root(){
 
@@ -112,7 +112,7 @@ sed -i '/iptables -t nat -F/d' /etc/rc.d/rc.local
 
 sed -i '/iptables -t nat -A POSTROUTING -s 10.12.0.0\/24 -o eth0 -j MASQUERADE/d' /etc/rc.d/rc.local
 
-sed -i '/#自动调整mtu，ocserv服务器使用/d' /etc/rc.d/rc.local
+sed -i '/#mtu，ocserv /d' /etc/rc.d/rc.local
 
 sed -i '/iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu/d' /etc/rc.d/rc.local
 
@@ -166,7 +166,7 @@ mkdir /root/anyconnect
 
 cd /root/anyconnect
 
-#生成 CA 证书
+# CA
 
 certtool --generate-privkey --outfile ca-key.pem
 
@@ -194,7 +194,7 @@ certtool --generate-self-signed --load-privkey ca-key.pem --template ca.tmpl --o
 
 cp ca-cert.pem /etc/ocserv/
 
-#生成本地服务器证书
+#
 
 certtool --generate-privkey --outfile server-key.pem
 
@@ -226,7 +226,7 @@ cp server-cert.pem /etc/ocserv/
 
 cp server-key.pem /etc/ocserv/
 
-#生成证书注销文件
+#
 
 cd /root/anyconnect/
 
@@ -248,7 +248,7 @@ certtool --generate-crl --load-ca-privkey ca-key.pem \
 
 --template crl.tmpl --outfile crl.pem
 
-#配置 ocserv
+# ocserv
 
 cd /etc/ocserv/
 
@@ -318,7 +318,7 @@ iptables -t nat -F
 
 iptables -t nat -A POSTROUTING -s 10.12.0.0/24 -o eth0 -j MASQUERADE
 
-#自动调整mtu，ocserv服务器使用
+#mtu，ocserv
 
 iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 
@@ -352,7 +352,7 @@ centos_install
 
 else
 
-"echo ""您的操作系统不是Cenos，请更换操作系统之后再试""  && exit 1"
+"echo ""Cenos，""  && exit 1"
 
 fi
 
